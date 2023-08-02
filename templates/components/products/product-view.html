@@ -95,7 +95,7 @@
 
     <section class="productView-details product-data">
         <div class="productView-product">
-            <h1 class="productView-title">{{product.title}}</h1>
+            <h1 class="productView-title" data-id="{{product.id}}">{{product.title}}</h1>
             {{#if product.brand}}
                 <h2 class="productView-brand">
                     <a href="{{product.brand.url}}"><span>{{product.brand.name}}</span></a>
@@ -218,9 +218,9 @@
                     </div>
                 {{/if}}
 
-                {{#if theme_settings.show_custom_fields_tabs '!==' true}}
+                <!-- {{#if theme_settings.show_custom_fields_tabs '!==' true}}
                     {{> components/products/custom-fields }}
-                {{/if}}
+                {{/if}} -->
             </dl>
         </div>
     </section>
@@ -231,7 +231,7 @@
                 <p>{{product.release_date}}</p>
             {{/if}}
             <form class="form" method="post" action="{{product.cart_url}}" enctype="multipart/form-data"
-                  data-cart-item-add>
+                  data-cart-item-add id="formcart">
                 <input type="hidden" name="action" value="add">
                 <input type="hidden" name="product_id" value="{{product.id}}"/>
                 <div data-product-option-change style="display:none;">
@@ -246,6 +246,8 @@
                         <span data-product-stock>{{product.stock_level}}</span>
                     </label>
                 </div>
+                <p id="customfields" style="display:none;">{{JSONstringify product.custom_fields}}</p>
+                <div id="upslleProd"></div>
                 {{> components/products/add-to-cart with_wallet_buttons=true}}
                 {{#if product.out_of_stock}}
                     {{#if product.out_of_stock_message}}
